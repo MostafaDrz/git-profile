@@ -1,10 +1,23 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 class App extends React.Component {
   state = {
-    userName: ""
+    userName: "",
+    response: null
+  };
+
+  onInputChange = event => {
+    this.setState({ userName: event.target.value });
+  };
+
+  getUserInfo = () => {
+    fetch(`https://api.github.com/users/${this.state.userName}`)
+      .then(resp => resp.json())
+      .then(data => {
+        console.log(data);
+        this.setState({ response: data });
+      });
   };
   render() {
     return (
@@ -12,9 +25,12 @@ class App extends React.Component {
         <h1>Git Profile</h1>
         <input
           placeholder="username..."
-          onChange={event => console.log(event.target.value)}
+          onChange={this.onInputChange}
+          className="userInput"
         />
-        <button>Search</button>
+        <button onClick={this.getUserInfo} className="btn btn-primary">
+          Search
+        </button>
       </div>
     );
   }

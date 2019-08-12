@@ -35,8 +35,10 @@ class App extends React.Component {
         </button>
         {response ? (
           <Container>
-            <ImageContainer src={response.avatar_url} alt={response.name} />
-            <h2>{response.name}</h2>
+            <Header>
+              <ImageContainer src={response.avatar_url} alt={response.name} />
+              <h2>{response.name}</h2>
+            </Header>
             <p>{response.bio}</p>
           </Container>
         ) : null}
@@ -51,19 +53,28 @@ const ImageContainer = styled.img`
   border-radius: 100%;
 `;
 
+const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: auto;
+`;
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   margin: auto;
-  width: 700px;
+  max-width: 1200px;
+  border: 2px solid #ccc;
   h2 {
+    font-size: 16px;
     color: blue;
     &:hover {
       color: red;
     }
   }
   p {
-    font-weight: 400;
+    font-weight: 700;
   }
 `;
 
